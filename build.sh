@@ -229,6 +229,10 @@ source ./config
 TOOLCHAIN_DIR=$1
 SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null && pwd )"
 
+if [ -L "${TOOLCHAIN_DIR}" ] ; then
+  echo "The destination directory must not be a symbolic link"
+  exit 1
+fi
 
 # We are already at the final stage, nothing to do
 if [ -e $TOOLCHAIN_DIR/final/sysroot ]; then
